@@ -1,0 +1,118 @@
+/* Login page */
+
+/* Color palette and shared values */
+:root {
+    --background-color: #f4f7fa;
+    --container-bg: #fff;
+    --text-color: #333;
+    --text-secondary: #555;
+    --border-color: #ddd;
+    --primary-color: #0a3264;
+    --primary-hover: #072447;
+    --danger-color: #d40000;
+    --border-radius: 4px;
+    --box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    --standard-padding: 12px;
+    --container-padding: 30px;
+    --transition-speed: 0.3s;
+}
+
+/* Page background */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: var(--background-color);
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+    color: var(--text-color);
+}
+
+/* Login card */
+.login-container {
+    max-width: 400px;
+    margin: 30px auto 30px auto;
+    padding: var(--container-padding);
+    background-color: var(--container-bg);
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    text-align: center;
+    /* Shrinks on short screens so the footer stays visible */
+    box-sizing: border-box;
+    min-height: min(550px, calc(100vh - 160px));
+    min-height: min(550px, calc(100dvh - 160px));
+}
+
+.login-container h2 {
+    margin-bottom: 25px;
+    font-size: 26px;
+    font-weight: 600;
+    color: var(--text-color);
+}
+
+.login-container a {
+    color: inherit;
+}
+
+/* Form fields */
+.login-container form p {
+    text-align: left;
+    margin-bottom: 20px;
+}
+
+.login-container label {
+    display: block;
+    margin-bottom: 6px;
+    color: var(--text-secondary);
+    font-size: 14px;
+}
+
+.login-container input[type="text"],
+.login-container input[type="password"] {
+    width: 100%;
+    padding: var(--standard-padding);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    font-size: 15px;
+    box-sizing: border-box;
+    transition: border-color var(--transition-speed);
+}
+
+.login-container input:focus {
+    outline: none;
+    border-color: var(--primary-color);
+}
+
+/* Error message */
+.login-error {
+    margin-bottom: 15px;
+    color: var(--danger-color);
+    font-size: 14px;
+}
+
+/* Submit button */
+.login-container button {
+    width: 100%;
+    padding: var(--standard-padding);
+    border: none;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    font-weight: 500;
+    font-size: 15px;
+    color: white;
+    background-color: var(--primary-color);
+    transition: background-color var(--transition-speed), transform var(--transition-speed);
+}
+
+.login-container button:hover {
+    background-color: var(--primary-hover);
+    transform: translateY(-2px);
+}
+
+/* Phones */
+@media (max-width: 640px) {
+    .login-container {
+        padding: 20px;
+        width: 90%;
+        margin: 30px auto;
+    }
+}

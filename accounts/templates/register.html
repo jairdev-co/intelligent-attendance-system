@@ -1,0 +1,48 @@
+{% extends 'layout.html' %}
+{% load static %}
+{# Register a user with their face photo and consent #}
+
+{% block styles %}
+<link rel="stylesheet" href="{% static 'css/register.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<div class="register-container">
+    <img src="{% static 'img/logo-cesmag.png' %}" alt="Universidad CESMAG" class="title-logo">
+    <a href="{% url 'users' %}" class="title-link"><h2>Registro de Usuario</h2></a>
+    <form id="register-form" method="POST" action="{% url 'register' %}">
+        {% csrf_token %}
+        <input type="text" id="username" name="username" placeholder="Nombre de usuario" maxlength="150" required>
+        <input type="text" inputmode="numeric" pattern="[0-9]+" maxlength="15" title="Solo dígitos" id="identification_number" name="identification_number" placeholder="Número de identificación"
+            required>
+        <div class="select-container">
+            <select name="user_type" id="user_type" required>
+                <option value="" disabled selected>Seleccione el tipo de usuario</option>
+                <option value="administrative">Administrativo</option>
+                <option value="student">Estudiante</option>
+            </select>
+        </div>
+        <div id="camera-container">
+            <video id="video" width="100%" height="auto" autoplay playsinline muted></video>
+            <canvas id="canvas" width="640" height="480"></canvas>
+        </div>
+        <fieldset class="consent-choice">
+            <legend>
+                ¿La persona leyó y acepta los
+                <a href="{% url 'terms' %}" target="_blank" rel="noopener noreferrer">términos y condiciones</a>
+                para el uso de su rostro y sus datos?
+            </legend>
+            <label><input type="radio" name="consent" value="si" required> Sí, acepta</label>
+            <label><input type="radio" name="consent" value="no"> No acepta</label>
+        </fieldset>
+        <button type="button" id="capture-button">Capturar rostro</button>
+        <button type="submit">Guardar</button>
+    </form>
+    <div id="message"></div>
+</div>
+
+<script src="{% static 'js/camera.js' %}"></script>
+<script src="{% static 'js/register.js' %}"></script>
+
+{% endblock %}

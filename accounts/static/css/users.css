@@ -1,0 +1,270 @@
+/* Registered users list */
+
+/* Color palette and shared values */
+:root {
+    --background-color: #f4f7fa;
+    --container-bg: #fff;
+    --text-color: #333;
+    --text-secondary: #555;
+    --border-color: #ddd;
+    --primary-color: #0a3264;
+    --danger-color: #d40000;
+    --danger-hover: #b00000;
+    --success-color: #1e7e34;
+    --success-hover: #176128;
+    --border-radius: 4px;
+    --box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    --standard-padding: 12px;
+    --container-padding: 30px;
+    --transition-speed: 0.3s;
+}
+
+/* Page background */
+body {
+    background: var(--background-color);
+    color: var(--text-color);
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+}
+
+/* Users card */
+.user-container {
+    background-color: var(--container-bg);
+    padding: var(--container-padding);
+    box-shadow: var(--box-shadow);
+    /* Same width as main.css so switching views doesn't shift the page */
+    max-width: min(90%, 1280px);
+    margin: 30px auto;
+}
+
+.user-container h2 {
+    margin-bottom: 25px;
+    font-size: 26px;
+    font-weight: 600;
+    color: var(--text-color);
+}
+
+/* Users table */
+.table-users {
+    font-size: 15px;
+    background: var(--primary-color);
+    border-radius: var(--border-radius);
+    overflow: hidden;
+}
+
+.table-header th {
+    background: var(--primary-color);
+    color: #fff;
+    border-color: var(--primary-color);
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+
+.table-users th {
+    vertical-align: middle;
+    border: 1px solid var(--background-color);
+    padding: 14px 12px;
+}
+
+.table-users td {
+    vertical-align: middle;
+    border: 1px solid var(--background-color);
+    padding: 10px 12px;
+}
+
+.table-users tr:nth-child(even) {
+    background: #f8f9fa;
+}
+
+.table-users tr:hover {
+    background: #eaf1fa;
+    transition: background var(--transition-speed);
+}
+
+.user-photo {
+    height: 100px;
+    width: 100px;
+    object-fit: cover;
+    border-radius: var(--border-radius);
+    background: #f8f9fa;
+}
+
+.text-muted {
+    color: var(--text-secondary) !important;
+    font-style: italic;
+}
+
+.actions-group {
+    text-align: right;
+}
+
+.table-users td[colspan] {
+    text-align: center;
+    padding: 30px;
+    color: var(--text-secondary);
+    font-style: italic;
+}
+
+/* Action buttons */
+.action-button {
+    padding: 8px 12px;
+    margin: 0 5px;
+    margin-bottom: 12px;
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    font-weight: 500;
+    transition: transform var(--transition-speed);
+    font-size: 15px;
+    background-color: transparent;
+    color: var(--text-color);
+    font-family: inherit;
+    display: inline-block;
+    text-decoration: none;
+}
+
+.action-button:hover {
+    text-decoration: none;
+}
+
+
+.action-button:hover {
+    transform: translateY(-2px);
+}
+
+.action-button:active {
+    transform: translateY(1px);
+}
+
+/* Update and Delete buttons side by side */
+.table-users td:last-child {
+    white-space: nowrap;
+}
+
+.user-update,
+.user-delete {
+    display: inline-block;
+}
+
+.update-button {
+    padding: var(--standard-padding) 24px;
+    border: none;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    font-weight: 500;
+    transition: background-color var(--transition-speed), transform var(--transition-speed);
+    font-size: 15px;
+    color: white;
+    margin-right: 6px;
+    background-color: var(--success-color);
+}
+
+.update-button:hover {
+    background-color: var(--success-hover);
+    transform: translateY(-2px);
+}
+
+.update-button:active {
+    transform: translateY(1px);
+}
+
+.delete-button {
+    padding: var(--standard-padding) 24px;
+    border: none;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    font-weight: 500;
+    transition: background-color var(--transition-speed), transform var(--transition-speed);
+    font-size: 15px;
+    color: white;
+    background-color: var(--danger-color);
+}
+
+.delete-button:hover {
+    background-color: var(--danger-hover);
+    transform: translateY(-2px);
+}
+
+.delete-button:active {
+    transform: translateY(1px);
+}
+
+.delete-button:focus {
+    outline: 2px solid var(--primary-color);
+    outline-offset: 2px;
+}
+
+.table-responsive {
+    overflow-x: auto;
+}
+
+/* Tablets and phones */
+@media (max-width: 991.98px) {
+    .user-container {
+        padding: 12px;
+        margin: 10px;
+    }
+
+    .user-container h2 {
+        font-size: 22px;
+    }
+
+    .action-button {
+        padding: 10px;
+    }
+
+    /* Cards: both buttons stacked and full width, easy to tap */
+    .table-users td:last-child {
+        white-space: normal;
+    }
+
+    .user-update,
+    .user-delete {
+        display: block;
+    }
+
+    .update-button,
+    .delete-button {
+        width: 100%;
+        margin: 0 0 8px;
+    }
+
+    /* Table: each registered person becomes a card */
+    .table-users thead {
+        display: none;
+    }
+
+    .table-users,
+    .table-users tbody,
+    .table-users tr,
+    .table-users td {
+        display: block;
+        width: 100%;
+    }
+
+    .table-users {
+        background: transparent;
+    }
+
+    .table-users tbody tr {
+        margin-bottom: 12px;
+        border: 1px solid var(--border-color);
+        border-radius: var(--border-radius);
+        background: var(--container-bg);
+    }
+
+    .table-users td {
+        border: none;
+        border-bottom: 1px solid var(--background-color);
+    }
+
+    .table-users td[data-label]::before {
+        content: attr(data-label);
+        display: block;
+        font-weight: 600;
+        color: var(--text-secondary);
+        font-size: 13px;
+    }
+}

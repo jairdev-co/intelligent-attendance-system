@@ -1,0 +1,23 @@
+# Files excluded from the Docker build context
+
+venv/
+__pycache__/
+*.pyc
+*.pyo
+db.sqlite3
+staticfiles/
+.env
+.git/
+.gitignore
+Dockerfile
+Procfile
+railway.json
+*.md
+.vscode/
+.idea/
+*.egg-info/
+dist/
+build/
+.pytest_cache/
+htmlcov/
+.coverage

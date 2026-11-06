@@ -1,0 +1,179 @@
+/* User registration form */
+
+/* Color palette and shared values */
+:root {
+    --background-color: #f4f7fa;
+    --container-bg: #fff;
+    --text-color: #333;
+    --text-secondary: #555;
+    --border-color: #ddd;
+    --primary-color: #0a3264;
+    --primary-hover: #072447;
+    --success-color: #1e7e34;
+    --success-hover: #176128;
+    --border-radius: 4px;
+    --box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    --standard-padding: 12px;
+    --container-padding: 30px;
+    --transition-speed: 0.3s;
+}
+
+/* Page background */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: var(--background-color);
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+    color: var(--text-color);
+}
+
+/* Registration card */
+.register-container {
+    max-width: 400px;
+    margin: 30px auto 30px auto;
+    padding: var(--container-padding);
+    background-color: var(--container-bg);
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    text-align: center;
+}
+
+.register-container h2 {
+    margin-bottom: 25px;
+    font-size: 26px;
+    font-weight: 600;
+    color: var(--text-color);
+}
+
+/* Form fields */
+input[type="text"],
+input[type="number"],
+.select-container select {
+    width: 100%;
+    padding: var(--standard-padding);
+    margin-bottom: 20px;
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    font-size: 15px;
+    box-sizing: border-box;
+    transition: border-color var(--transition-speed);
+}
+
+input[type="text"]:focus,
+input[type="number"]:focus,
+.select-container select:focus {
+    outline: none;
+    border-color: var(--primary-color);
+}
+
+.select-container {
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.select-container select {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    cursor: pointer;
+    background-color: var(--container-bg);
+    margin-bottom: 0;
+}
+
+.select-container::after {
+    content: "▼";
+    font-size: 12px;
+    color: var(--text-secondary);
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+}
+
+.select-container select option {
+    padding: 10px;
+    background-color: var(--container-bg);
+    color: var(--text-color);
+}
+
+/* Camera */
+#camera-container {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+#video {
+    border-radius: var(--border-radius);
+    width: 100%;
+    height: auto;
+}
+
+canvas {
+    display: none;
+}
+
+/* Buttons */
+button {
+    width: 100%;
+    padding: var(--standard-padding);
+    border: none;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    font-weight: 500;
+    transition: background-color var(--transition-speed), transform var(--transition-speed);
+    font-size: 15px;
+    color: white;
+}
+
+button:hover {
+    transform: translateY(-2px);
+}
+
+button:active {
+    transform: translateY(1px);
+}
+
+button[type="submit"] {
+    background-color: var(--primary-color);
+    margin-top: 10px;
+}
+
+button[type="submit"]:hover {
+    background-color: var(--primary-hover);
+}
+
+#capture-button {
+    background-color: var(--success-color);
+}
+
+#capture-button:hover {
+    background-color: var(--success-hover);
+}
+
+/* Status message */
+#message {
+    margin-top: 20px;
+    color: var(--text-secondary);
+    font-size: 14px;
+    min-height: 1.4em;
+}
+
+/* Phones */
+@media (max-width: 640px) {
+    .register-container {
+        padding: 20px;
+        width: 90%;
+        margin: 30px auto;
+    }
+
+    h2 {
+        font-size: 22px;
+    }
+
+    button,
+    input {
+        padding: 10px;
+    }
+}

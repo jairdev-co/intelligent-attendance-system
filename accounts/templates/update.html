@@ -1,0 +1,39 @@
+{% extends 'layout.html' %}
+{% load static %}
+{# Edit a user's data and face photo #}
+
+{% block styles %}
+<link rel="stylesheet" href="{% static 'css/update.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<div class="update-container">
+    <img src="{% static 'img/logo-cesmag.png' %}" alt="Universidad CESMAG" class="title-logo">
+    <a href="{% url 'users' %}" class="title-link"><h2>Actualizar Usuario</h2></a>
+    <form id="update-form" method="POST" action="{% url 'update' user_img.pk %}">
+        {% csrf_token %}
+        <input type="text" id="username" name="username" placeholder="Nombre de usuario" maxlength="150" value="{{ user_img.user.username }}" required>
+        <input type="text" inputmode="numeric" pattern="[0-9]+" maxlength="15" title="Solo dígitos" id="identification_number" name="identification_number" placeholder="Número de identificación"
+            value="{{ user_img.identification_number }}" required>
+        <div class="select-container">
+            <select name="user_type" id="user_type" required>
+                <option value="" disabled>Seleccione el tipo de usuario</option>
+                <option value="administrative" {% if user_img.user_type == 'administrative' %}selected{% endif %}>Administrativo</option>
+                <option value="student" {% if user_img.user_type == 'student' %}selected{% endif %}>Estudiante</option>
+            </select>
+        </div>
+        <div id="camera-container">
+            <video id="video" width="100%" height="auto" autoplay playsinline muted></video>
+            <canvas id="canvas" width="640" height="480"></canvas>
+        </div>
+        <button type="button" id="capture-button">Capturar rostro</button>
+        <button type="submit">Guardar</button>
+    </form>
+    <div id="message"></div>
+</div>
+
+<script src="{% static 'js/camera.js' %}"></script>
+<script src="{% static 'js/update.js' %}"></script>
+
+{% endblock %}
