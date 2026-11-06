@@ -193,5 +193,7 @@ LOGGING = {
     },
     'loggers': {
         'accounts': {'handlers': ['console'], 'level': 'INFO', 'propagate': False},
+        # Print the traceback of 500 errors in the Railway logs
+        'django.request': {'handlers': ['console'], 'level': 'ERROR', 'propagate': False},
     },
 }
