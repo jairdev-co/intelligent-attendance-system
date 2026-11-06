@@ -1,0 +1,58 @@
+{% extends 'layout.html' %}
+{% load static %}
+{# Terms of use and data processing authorization (Ley 1581 de 2012, Decreto 1377 de 2013). #}
+{# Bump TERMS_VERSION in views.py when the text changes. #}
+{% block content %}
+
+<div class="container my-4 terms-page">
+    <div class="card shadow-sm">
+        <div class="card-body p-4 terms-text">
+            <img src="{% static 'img/logo-cesmag.png' %}" alt="Universidad CESMAG" class="title-logo">
+            <h2 class="terms-title mb-1 text-center">Términos y condiciones</h2>
+            <p class="text-muted small mb-4 text-center">
+                Uso del rostro y datos personales · Sistema de Asistencia Inteligente · Versión {{ terms_version }}
+            </p>
+
+            <h3 class="h6 fw-bold">¿Quién usa tus datos?</h3>
+            <p>
+                La <strong>Universidad CESMAG</strong> (NIT 800.109.387-7, Carrera 20A No. 14-53, Pasto).
+            </p>
+
+            <h3 class="h6 fw-bold">¿Qué datos se guardan?</h3>
+            <p>
+                Tu nombre, número de identificación, tipo de usuario, <strong>una foto de tu rostro</strong>
+                y tus registros de entrada y salida (fecha y hora).
+            </p>
+
+            <h3 class="h6 fw-bold">¿Para qué?</h3>
+            <p>
+                <strong>Solo para controlar tu asistencia.</strong> No se usan para nada más ni se comparten
+                con terceros, salvo que una autoridad lo exija por ley. Las fotos que toma la cámara al marcar
+                asistencia <strong>no se guardan</strong>: solo se comparan con tu foto registrada.
+            </p>
+
+            <h3 class="h6 fw-bold">¿Es obligatorio aceptar?</h3>
+            <p>
+                <strong>No.</strong> Tu rostro es un dato sensible y aceptar es voluntario. Si no aceptas,
+                puedes registrar tu asistencia por otro medio que disponga la Universidad.
+            </p>
+
+            <h3 class="h6 fw-bold">¿Cuáles son tus derechos?</h3>
+            <p>
+                En cualquier momento puedes conocer, corregir o pedir que se borren tus datos, y retirar esta
+                autorización, escribiendo a
+                <a href="mailto:correspondencia@unicesmag.edu.co">correspondencia@unicesmag.edu.co</a>
+                (Ley 1581 de 2012 y
+                <a href="https://www.unicesmag.edu.co/documentos/DATOS-UNICESMAG.pdf" target="_blank" rel="noopener noreferrer">Política de Datos de la Universidad CESMAG</a>).
+            </p>
+
+            <h3 class="h6 fw-bold">Al responder «Sí, acepto»</h3>
+            <p class="mb-0">
+                Autorizas a la Universidad CESMAG a usar tu rostro y tus datos para controlar tu asistencia,
+                como se explica aquí. Se guarda la fecha y hora en que aceptaste.
+            </p>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

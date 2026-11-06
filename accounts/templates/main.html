@@ -1,0 +1,119 @@
+{% extends 'layout.html' %}
+{% load static %}
+{# Attendance dashboard: filters, pagination and CSV export #}
+
+{% block styles %}
+<link rel="stylesheet" href="{% static 'css/main.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<div class="main-container">
+    <img src="{% static 'img/logo-cesmag.png' %}" alt="Universidad CESMAG" class="title-logo">
+    <h2>Registros de Asistencia</h2>
+
+    <div class="filters-bar">
+        <form method="GET" action="{% url 'main' %}" id="filter-form" class="filter-form">
+            <div class="filter-group">
+                <label for="user-type-filter">Tipo de usuario</label>
+                <select id="user-type-filter" name="user_type">
+                    <option value="all" {% if filters.user_type == 'all' %}selected{% endif %}>Todos</option>
+                    <option value="administrative" {% if filters.user_type == 'administrative' %}selected{% endif %}>Administrativo</option>
+                    <option value="student" {% if filters.user_type == 'student' %}selected{% endif %}>Estudiante</option>
+                </select>
+
+                <label for="date-from">Desde</label>
+                <input type="date" id="date-from" name="date_from" value="{{ filters.date_from }}">
+
+                <label for="date-to">Hasta</label>
+                <input type="date" id="date-to" name="date_to" value="{{ filters.date_to }}">
+
+                <label for="per-page">Registros por página</label>
+                <select id="per-page" name="per_page">
+                    {% for size in page_sizes %}
+                    <option value="{{ size }}" {% if size == filters.per_page %}selected{% endif %}>{{ size }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </form>
+        <div class="actions-group">
+            <button type="submit" form="filter-form" class="action-button secondary-button">Aplicar Filtros</button>
+            <a href="?{{ base_querystring }}{% if base_querystring %}&{% endif %}export=csv" class="action-button secondary-button">Exportar CSV</a>
+            <a href="{% url 'main' %}" class="action-button danger-button">Restablecer</a>
+            <a href="{% url 'users' %}" class="action-button secondary-button">Usuarios</a>
+            <form method="POST" action="{% url 'logout' %}" class="logout-form">
+                {% csrf_token %}
+                <button type="submit" class="action-button danger-button">Salir</button>
+            </form>
+        </div>
+    </div>
+
+    <table class="main-table">
+        <thead>
+            <tr>
+                <th>Número de identificación</th>
+                <th>Nombre completo</th>
+                <th>Tipo de usuario</th>
+                <th>Tipo</th>
+                <th>Fecha</th>
+                <th>Hora</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for attendance in attendance_list %}
+            <tr>
+                <td data-label="Número de identificación">{{ attendance.number_identification }}</td>
+                <td data-label="Nombre completo">{{ attendance.fullname }}</td>
+                <td data-label="Tipo de usuario">
+                    {% if attendance.user_type == 'administrative' %}Administrativo{% else %}Estudiante{% endif %}
+                </td>
+                <td data-label="Tipo" class="{% if attendance.type_register == 'entry' %}entry-type{% else %}exit-type{% endif %}">
+                    {% if attendance.type_register == 'entry' %}Entrada{% else %}Salida{% endif %}
+                </td>
+                <td data-label="Fecha">{{ attendance.timestamp|date:"d/m/Y" }}</td>
+                <td data-label="Hora">{{ attendance.timestamp|time:"g:i:s A" }}</td>
+                <td data-label="Acciones">
+                    <form action="{% url 'remove' attendance.id %}" method="POST" class="attendance-delete">
+                        {% csrf_token %}
+                        {# Current page and filters, to come back here after deleting #}
+                        <input type="hidden" name="return_query" value="{{ current_querystring }}">
+                        <button type="submit" class="delete-button"
+                        onclick="return confirm('¿Está seguro de que desea eliminar este registro de asistencia?');">Eliminar</button>
+                    </form>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="7" class="text-center">No se encontraron registros de asistencia.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    {% if page_obj.paginator.num_pages > 1 %}
+    {# Every link keeps the current filters (base_querystring) and only changes the page #}
+    {% with qs=base_querystring|default:'' %}
+    <nav class="pagination-bar" aria-label="Paginación de registros">
+        {% if page_obj.has_previous %}
+        <a class="action-button secondary-button" href="?{{ qs }}{% if qs %}&{% endif %}page={{ page_obj.previous_page_number }}">&laquo; Anterior</a>
+        {% else %}
+        <span class="action-button secondary-button disabled" aria-disabled="true">&laquo; Anterior</span>
+        {% endif %}
+
+        <span class="pagination-info">
+            Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}
+            ({{ page_obj.start_index }}–{{ page_obj.end_index }} de {{ page_obj.paginator.count }})
+        </span>
+
+        {% if page_obj.has_next %}
+        <a class="action-button secondary-button" href="?{{ qs }}{% if qs %}&{% endif %}page={{ page_obj.next_page_number }}">Siguiente &raquo;</a>
+        {% else %}
+        <span class="action-button secondary-button disabled" aria-disabled="true">Siguiente &raquo;</span>
+        {% endif %}
+    </nav>
+    {% endwith %}
+    {% endif %}
+</div>
+
+{% endblock %}

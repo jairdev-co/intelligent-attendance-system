@@ -1,0 +1,36 @@
+{% load static %}{# Base layout for every page #}<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Asistencia Inteligente</title>
+    {# University seal as browser and home screen icon #}
+    <link rel="icon" href="{% static 'img/favicon.ico' %}" sizes="16x16 32x32 48x48">
+    <link rel="icon" type="image/png" href="{% static 'img/favicon-192.png' %}" sizes="192x192">
+    <link rel="apple-touch-icon" href="{% static 'img/apple-touch-icon.png' %}">
+    {# Include Bootstrap 5.3.3 CSS (served locally) #}
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'css/common.css' %}" rel="stylesheet">
+    {# Stylesheet of each page #}
+    {% block styles %}
+    {% endblock %}
+</head>
+<body>
+    {# Template block where child templates insert their content #}
+    <main class="page-main">
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    {# Site footer #}
+    <footer class="site-footer">
+        <p>
+            © {% now "Y" %} Universidad CESMAG. Todos los derechos reservados.
+        </p>
+        <p class="footer-credit">
+            Desarrollado por Brayan Jair Enríquez
+        </p>
+    </footer>
+
+</body>
+</html>

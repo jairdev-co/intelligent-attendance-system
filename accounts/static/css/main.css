@@ -1,0 +1,324 @@
+/* Attendance dashboard */
+
+/* Color palette and shared values */
+:root {
+    --primary-color: #1e7e34;
+    --primary-hover: #176128;
+    --secondary-color: #0a3264;
+    --secondary-hover: #072447;
+    --danger-color: #d40000;
+    --danger-hover: #b00000;
+    --background-color: #f4f7fa;
+    --container-bg: #fff;
+    --header-bg: #f0f0f0;
+    --row-hover: #f9f9f9;
+    --text-color: #333;
+    --text-secondary: #555;
+    --border-color: #ddd;
+    --border-radius: 4px;
+    --box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    --table-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
+    --standard-padding: 12px;
+    --container-padding: 30px;
+    --transition-speed: 0.3s;
+}
+
+/* Page background */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: var(--background-color);
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+    color: var(--text-color);
+}
+
+/* Dashboard card */
+.main-container {
+    /* Capped so big screens don't stretch the filters and table */
+    max-width: min(calc(100% - 40px), 1280px);
+    margin: 30px auto;
+    padding: var(--container-padding) 20px;
+    background-color: var(--container-bg);
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    text-align: center;
+}
+
+.main-container h2 {
+    margin-bottom: 25px;
+    font-size: 26px;
+    font-weight: 600;
+    color: var(--text-color);
+}
+
+/* Attendance table */
+.main-table {
+    font-size: 15px;
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    background-color: var(--container-bg);
+    box-shadow: var(--table-shadow);
+    border-radius: var(--border-radius);
+    overflow: hidden;
+}
+
+.main-table thead {
+    background-color: var(--secondary-color);
+    color: white;
+}
+
+.main-table th {
+    padding: 15px;
+    text-align: left;
+    font-weight: 600;
+    position: sticky;
+    top: 0;
+}
+
+.main-table tbody tr {
+    border-bottom: 1px solid var(--border-color);
+    transition: background-color var(--transition-speed);
+}
+
+.main-table tbody tr:last-child {
+    border-bottom: none;
+}
+
+.main-table tbody tr:hover {
+    background-color: var(--row-hover);
+}
+
+.main-table td {
+    padding: 12px 15px;
+    text-align: left;
+}
+
+.main-table .entry-type {
+    color: var(--primary-color);
+    font-weight: 500;
+}
+
+.main-table .exit-type {
+    color: var(--danger-color);
+    font-weight: 500;
+}
+
+.main-table td[colspan] {
+    text-align: center;
+    padding: 30px;
+    color: var(--text-secondary);
+    font-style: italic;
+}
+
+/* Action buttons */
+.action-button {
+    padding: 8px 12px;
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    font-weight: 500;
+    transition: transform var(--transition-speed);
+    font-size: 15px;
+    background-color: transparent;
+    color: var(--text-color);
+    font-family: inherit;
+    text-decoration: none;
+}
+
+.action-button:hover {
+    transform: translateY(-2px);
+    text-decoration: none;
+}
+
+.action-button:active {
+    transform: translateY(1px);
+}
+
+.secondary-button, .secondary-button:hover,
+.danger-button, .danger-button:hover {
+    color: var(--text-color);
+    border-color: var(--border-color);
+}
+
+/* Filters: fields and buttons flow in a single row */
+.filters-bar {
+    font-size: 15px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px 8px;
+    margin: 10px 0 20px;
+}
+
+.filter-form,
+.filter-group,
+.actions-group {
+    display: contents;
+}
+
+.filter-group label {
+    font-weight: 500;
+}
+
+.filter-group select,
+.filter-group input[type="date"] {
+    font-size: 15px;
+    padding: 8px 12px;
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    background-color: white;
+}
+
+.filter-group select {
+    cursor: pointer;
+}
+
+/* Fields take the free space so the row fills the whole width */
+.filter-group select,
+.filter-group input[type="date"] {
+    flex: 1 1 auto;
+}
+
+.logout-form {
+    display: inline;
+    margin: 0;
+}
+
+/* Row delete button */
+.attendance-delete {
+    display: inline;
+}
+
+.delete-button {
+    padding: var(--standard-padding) 24px;
+    border: none;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    font-weight: 500;
+    transition: background-color var(--transition-speed), transform var(--transition-speed);
+    font-size: 15px;
+    color: white;
+    background-color: var(--danger-color);
+}
+
+.delete-button:hover {
+    background-color: var(--danger-hover);
+    transform: translateY(-2px);
+}
+
+.delete-button:active {
+    transform: translateY(1px);
+}
+
+.delete-button:focus {
+    outline: 2px solid var(--primary-color);
+    outline-offset: 2px;
+}
+
+/* Pagination buttons under the table */
+.pagination-bar {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    margin-top: 10px;
+}
+
+.pagination-info {
+    color: var(--text-secondary);
+    margin: 0 8px;
+}
+
+.action-button.disabled {
+    opacity: 0.45;
+    cursor: default;
+    pointer-events: none;
+}
+
+/* Tablets and phones */
+@media (max-width: 991.98px) {
+    .main-container {
+        padding: 12px;
+        margin: 10px;
+        max-width: 100%;
+        box-sizing: border-box;
+    }
+
+    .main-container h2 {
+        font-size: 22px;
+    }
+
+    /* Filters: one per line, full width */
+    .filters-bar,
+    .filter-form,
+    .filter-group {
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        width: 100%;
+        gap: 6px;
+    }
+
+    .filter-group label {
+        text-align: left;
+    }
+
+    .filter-group select,
+    .filter-group input[type="date"] {
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .actions-group {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        justify-content: center;
+        margin-top: 10px;
+    }
+
+    .action-button {
+        padding: 10px;
+    }
+
+    /* Cards: the button takes the whole card width, easy to tap */
+    .main-table .delete-button {
+        width: 100%;
+    }
+
+    /* Table: each attendance record becomes a card */
+    .main-table thead {
+        display: none;
+    }
+
+    .main-table,
+    .main-table tbody,
+    .main-table tr,
+    .main-table td {
+        display: block;
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .main-table tbody tr {
+        margin-bottom: 12px;
+        border: 1px solid var(--border-color);
+        border-radius: var(--border-radius);
+    }
+
+    .main-table td {
+        padding: 8px 12px;
+        font-size: 15px;
+    }
+
+    .main-table td[data-label]::before {
+        content: attr(data-label);
+        display: block;
+        font-weight: 600;
+        color: var(--text-secondary);
+        font-size: 13px;
+    }
+}

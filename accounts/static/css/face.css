@@ -1,0 +1,183 @@
+/* Attendance screen */
+
+/* Color palette and shared values */
+:root {
+    --primary-color: #1e7e34;
+    --primary-hover: #176128;
+    --danger-color: #d40000;
+    --danger-hover: #b00000;
+    --background-color: #f4f7fa;
+    --container-bg: #fff;
+    --text-color: #333;
+    --text-secondary: #555;
+    --border-radius: 4px;
+    --box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    --standard-padding: 12px;
+    --container-padding: 30px;
+    --transition-speed: 0.3s;
+}
+
+/* Page background */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: var(--background-color);
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+    color: var(--text-color);
+}
+
+/* Attendance card */
+.face-container {
+    max-width: 400px;
+    margin: 30px auto 30px auto;
+    padding: var(--container-padding);
+    background-color: var(--container-bg);
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    text-align: center;
+}
+
+.face-container h2 {
+    margin-bottom: 25px;
+    font-size: 26px;
+    font-weight: 600;
+    color: var(--text-color);
+}
+
+/* Entry/Exit buttons, shown by face.js once a face is recognized */
+#user-info {
+    display: none;
+}
+
+/* Camera */
+#camera-container {
+    margin-bottom: 20px;
+}
+
+#video {
+    border-radius: var(--border-radius);
+    width: 100%;
+    height: auto;
+    /* Keep the Entry/Exit buttons on screen */
+    max-height: 45vh;
+    object-fit: cover;
+}
+
+canvas {
+    display: none;
+}
+
+/* Buttons */
+.buttons-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+button {
+    width: 100%;
+    padding: var(--standard-padding);
+    border: none;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    font-weight: 500;
+    transition: background-color var(--transition-speed), transform var(--transition-speed);
+    font-size: 15px;
+    color: white;
+    margin-top: 10px;
+}
+
+button:hover {
+    transform: translateY(-2px);
+}
+
+button:active {
+    transform: translateY(1px);
+}
+
+#entry-button,
+button[type="submit"] {
+    background-color: var(--primary-color);
+}
+
+#entry-button:hover,
+button[type="submit"]:hover {
+    background-color: var(--primary-hover);
+}
+
+#exit-button,
+button[type="button"] {
+    background-color: var(--danger-color);
+}
+
+#exit-button:hover,
+button[type="button"]:hover {
+    background-color: var(--danger-hover);
+}
+
+/* Status message */
+#message {
+    margin-top: 20px;
+    color: var(--text-secondary);
+    font-size: 14px;
+    min-height: 1.3em;
+}
+
+/* Phones */
+@media (max-width: 640px) {
+    .face-container {
+        padding: 20px;
+        width: 90%;
+        margin: 30px auto;
+    }
+
+    h2 {
+        font-size: 22px;
+    }
+
+    button {
+        padding: 10px;
+    }
+}
+/* Short screens: compact layout so the buttons stay visible without scrolling */
+@media (max-height: 640px) {
+    .face-container {
+        margin: 8px auto;
+        padding: 12px 20px;
+    }
+
+    .face-container h2 {
+        font-size: 20px;
+        margin-bottom: 8px;
+    }
+
+    #message.alert {
+        padding: 6px 10px;
+        margin-bottom: 8px;
+    }
+
+    #camera-container {
+        margin-bottom: 8px;
+    }
+
+    #user-info p {
+        margin: 0;
+    }
+
+    .buttons-container {
+        margin-top: 4px;
+    }
+}
+
+/* Very short screens (phones in landscape) */
+@media (max-height: 420px) {
+    #video {
+        max-height: 34vh;
+    }
+
+    .face-container h2 {
+        font-size: 16px;
+    }
+}
