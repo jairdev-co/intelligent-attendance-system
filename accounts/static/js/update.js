@@ -1,10 +1,9 @@
 // Initialize DOM references and variables for facial recognition update
 const video = document.getElementById('video');
 const canvas = document.getElementById('canvas');
-const captureButton = document.getElementById('capture-button');
+const updateFace = document.getElementById('update-face');
 const updateForm = document.getElementById('update-form');
 const message = document.getElementById('message');
-let capturedImage = null;
 let isSubmitting = false;
 
 // Access the camera and start the video stream
@@ -13,26 +12,15 @@ navigator.mediaDevices.getUserMedia({ video: true })
     .then(stream => {
         video.srcObject = stream;
         setCameraState('active');
-        setStatus(message, 'Mire a la cámara y pulse Capturar rostro.');
+        setStatus(message, 'Edite los datos y pulse Guardar. Para cambiar el rostro, marque la casilla y mire a la cámara.');
     })
     .catch(error => {
         console.error('Error accessing camera:', error);
         setCameraState('error');
-        setStatus(message, 'Cámara no accesible. Por favor verifique los permisos.', 'error');
+        setStatus(message, 'Cámara no accesible. Puede guardar los datos sin cambiar el rostro.', 'error');
     });
 
-// Capture the face from the current video frame
-captureButton.addEventListener('click', () => {
-    if (!cameraReady(video)) {
-        setStatus(message, "Por favor habilite la cámara.", 'error');
-        return;
-    }
-    capturedImage = captureFrame(video, canvas);
-    setCameraState('success');
-    setStatus(message, "Rostro capturado correctamente.", 'success');
-});
-
-// Handle update form submission and send user data with face image
+// Save the user data, capturing a new face photo only when the box is checked
 updateForm.onsubmit = async (e) => {
     e.preventDefault();
 
@@ -47,11 +35,18 @@ updateForm.onsubmit = async (e) => {
         return;
     }
 
+    if (updateFace.checked && !cameraReady(video)) {
+        setStatus(message, "Por favor habilite la cámara o desmarque Actualizar también el rostro.", 'error');
+        return;
+    }
+
     isSubmitting = true;
     const formData = new FormData(updateForm);
-    if (capturedImage) {
-        formData.append('face_image', capturedImage);
+    if (updateFace.checked) {
+        formData.append('face_image', captureFrame(video, canvas));
+        setCameraState('scanning');
     }
+    setStatus(message, 'Guardando...');
 
     let data;
     try {
@@ -72,6 +67,7 @@ updateForm.onsubmit = async (e) => {
         data = { status: 'error', message: 'Error de conexión con el servidor. Intente de nuevo.' };
     }
     if (data.status === 'success') {
+        if (updateFace.checked) setCameraState('success');
         setStatus(message, data.message || '¡Actualización exitosa!', 'success');
         if (data.redirect) {
             setTimeout(() => {
@@ -79,6 +75,8 @@ updateForm.onsubmit = async (e) => {
             }, 1000);
         }
     } else {
+        // Show the error; the next click takes a fresh photo
+        if (updateFace.checked) setCameraState('error');
         setStatus(message, data.message || 'La actualización falló.', 'error');
         isSubmitting = false;
     }

@@ -10,9 +10,14 @@
 
 <div class="user-container">
     <img src="{% static 'img/logo-cesmag.png' %}" alt="Universidad CESMAG" class="title-logo">
-    <a href="{% url 'register' %}" class="title-link"><h2 class="mb-4 text-center">Usuarios Registrados</h2></a>
+    <h2 class="mb-4 text-center">Usuarios Registrados</h2>
     <div class="actions-group">
+        <a href="{% url 'register' %}" class="action-button secondary-button">Registrar Usuario</a>
         <a href="{% url 'main' %}" class="action-button secondary-button">Panel de Asistencia</a>
+        <form method="POST" action="{% url 'logout' %}" class="logout-form">
+            {% csrf_token %}
+            <button type="submit" class="action-button">Salir</button>
+        </form>
     </div>
     <div class="table-responsive">
         <table class="table table-striped table-hover align-middle table-users">

@@ -10,7 +10,7 @@
 
 <div class="register-container">
     <img src="{% static 'img/logo-cesmag.png' %}" alt="Universidad CESMAG" class="title-logo">
-    <a href="{% url 'users' %}" class="title-link"><h2>Registro de Usuario</h2></a>
+    <h2>Registro de Usuario</h2>
     <form id="register-form" method="POST" action="{% url 'register' %}">
         {% csrf_token %}
         <input type="text" id="username" name="username" placeholder="Nombre de usuario" maxlength="150" required>
@@ -36,8 +36,8 @@
             <label><input type="radio" name="consent" value="si" required> Sí, acepta</label>
             <label><input type="radio" name="consent" value="no"> No acepta</label>
         </fieldset>
-        <button type="button" id="capture-button">Capturar rostro</button>
-        <button type="submit">Guardar</button>
+        <button type="submit">Registrar</button>
+        <a href="{% url 'users' %}" class="back-button">Volver</a>
     </form>
     <div id="message"></div>
 </div>

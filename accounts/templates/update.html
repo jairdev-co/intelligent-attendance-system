@@ -10,7 +10,7 @@
 
 <div class="update-container">
     <img src="{% static 'img/logo-cesmag.png' %}" alt="Universidad CESMAG" class="title-logo">
-    <a href="{% url 'users' %}" class="title-link"><h2>Actualizar Usuario</h2></a>
+    <h2>Actualizar Usuario</h2>
     <form id="update-form" method="POST" action="{% url 'update' user_img.pk %}">
         {% csrf_token %}
         <input type="text" id="username" name="username" placeholder="Nombre de usuario" maxlength="150" value="{{ user_img.user.username }}" required>
@@ -27,8 +27,11 @@
             <video id="video" width="100%" height="auto" autoplay playsinline muted></video>
             <canvas id="canvas" width="640" height="480"></canvas>
         </div>
-        <button type="button" id="capture-button">Capturar rostro</button>
+        <label class="face-option">
+            <input type="checkbox" id="update-face"> Actualizar también el rostro
+        </label>
         <button type="submit">Guardar</button>
+        <a href="{% url 'users' %}" class="back-button">Volver</a>
     </form>
     <div id="message"></div>
 </div>

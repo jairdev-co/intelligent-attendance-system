@@ -144,14 +144,6 @@ button[type="submit"]:hover {
     background-color: var(--primary-hover);
 }
 
-#capture-button {
-    background-color: var(--success-color);
-}
-
-#capture-button:hover {
-    background-color: var(--success-hover);
-}
-
 /* Status message */
 #message {
     margin-top: 20px;

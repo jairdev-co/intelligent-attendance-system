@@ -144,13 +144,19 @@ button[type="submit"]:hover {
     background-color: var(--primary-hover);
 }
 
-#capture-button {
-    background-color: var(--success-color);
-    margin-bottom: 10px;
+/* Optional face update */
+.face-option {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 14px;
+    color: #555;
+    cursor: pointer;
 }
 
-#capture-button:hover {
-    background-color: var(--success-hover);
+.face-option input {
+    width: auto;
+    padding: 0;
 }
 
 /* Status message */

@@ -1,10 +1,8 @@
 // Initialize DOM references and variables for facial recognition registration
 const video = document.getElementById('video');
 const canvas = document.getElementById('canvas');
-const captureButton = document.getElementById('capture-button');
 const registerForm = document.getElementById('register-form');
 const message = document.getElementById('message');
-let capturedImage = null;
 let isSubmitting = false;
 
 // Access the camera and start the video stream
@@ -13,7 +11,7 @@ navigator.mediaDevices.getUserMedia({ video: true })
     .then(stream => {
         video.srcObject = stream;
         setCameraState('active');
-        setStatus(message, 'Mire a la cámara y pulse Capturar rostro.');
+        setStatus(message, 'Complete los datos, mire a la cámara y pulse Registrar.');
     })
     .catch(error => {
         console.error('Error accessing camera:', error);
@@ -21,26 +19,11 @@ navigator.mediaDevices.getUserMedia({ video: true })
         setStatus(message, 'Cámara no accesible. Por favor verifique los permisos.', 'error');
     });
 
-// Capture the face from the current video frame
-captureButton.addEventListener('click', () => {
-    if (!cameraReady(video)) {
-        setStatus(message, "Por favor habilite la cámara.", 'error');
-        return;
-    }
-    capturedImage = captureFrame(video, canvas);
-    setCameraState('success');
-    setStatus(message, "Rostro capturado correctamente.", 'success');
-});
-
-// Handle register form submission and send user data with face image
+// Capture the face and send the user data in one step
 registerForm.onsubmit = async (e) => {
     e.preventDefault();
 
     if (isSubmitting) return;
-    if (!capturedImage) {
-        setStatus(message, "Por favor capture su rostro primero.", 'error');
-        return;
-    }
 
     const username = document.getElementById('username').value;
     const identification_number = document.getElementById('identification_number').value;
@@ -51,7 +34,16 @@ registerForm.onsubmit = async (e) => {
         return;
     }
 
+    if (!cameraReady(video)) {
+        setStatus(message, "Por favor habilite la cámara.", 'error');
+        return;
+    }
+
     isSubmitting = true;
+    const capturedImage = captureFrame(video, canvas);
+    setCameraState('scanning');
+    setStatus(message, 'Registrando...');
+
     const formData = new FormData(registerForm);
     formData.append('face_image', capturedImage);
 
@@ -74,6 +66,7 @@ registerForm.onsubmit = async (e) => {
         data = { status: 'error', message: 'Error de conexión con el servidor. Intente de nuevo.' };
     }
     if (data.status === 'success') {
+        setCameraState('success');
         setStatus(message, data.message || '¡Registro exitoso!', 'success');
         if (data.redirect) {
             setTimeout(() => {
@@ -81,6 +74,8 @@ registerForm.onsubmit = async (e) => {
             }, 1000);
         }
     } else {
+        // Show the error; the next click takes a fresh photo
+        setCameraState('error');
         setStatus(message, data.message || 'El registro falló.', 'error');
         isSubmitting = false;
     }

@@ -82,6 +82,59 @@ body {
     border-color: var(--primary-color);
 }
 
+/* Password field with show/hide button */
+.password-wrapper {
+    position: relative;
+    display: block;
+}
+
+.login-container .password-wrapper input {
+    padding-right: 44px;
+}
+
+/* Hide the browser's own reveal button (Edge) so only ours shows */
+.password-wrapper input::-ms-reveal,
+.password-wrapper input::-ms-clear {
+    display: none;
+}
+
+.login-container .password-toggle {
+    position: absolute;
+    top: 50%;
+    right: 6px;
+    transform: translateY(-50%);
+    width: 34px;
+    height: 34px;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    color: var(--text-secondary);
+    border-radius: var(--border-radius);
+    transition: color var(--transition-speed);
+}
+
+.login-container .password-toggle:hover {
+    background: transparent;
+    color: var(--primary-color);
+    transform: translateY(-50%);
+}
+
+.login-container .password-toggle:focus-visible {
+    outline: 2px solid var(--primary-color);
+    outline-offset: 1px;
+}
+
+.password-toggle .icon-hide,
+.password-toggle.is-visible .icon-show {
+    display: none;
+}
+
+.password-toggle.is-visible .icon-hide {
+    display: block;
+}
+
 /* Error message */
 .login-error {
     margin-bottom: 15px;

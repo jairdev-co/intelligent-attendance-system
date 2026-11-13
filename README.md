@@ -76,7 +76,7 @@ DJANGO_CSRF_TRUSTED_ORIGINS=
 | ----------------------------- | ---------------------------------------------------------------- |
 | `DJANGO_SECRET_KEY`           | Firma las sesiones. Sin ella la aplicación no arranca            |
 | `DJANGO_DEBUG`                | `True` solo en local. Por defecto `False`                        |
-| `DJANGO_ALLOWED_HOSTS`        | Dominios o IP permitidos, separados por comas                    |
+| `DJANGO_ALLOWED_HOSTS`        | Dominios o IP extra permitidos, separados por comas (`localhost` y `127.0.0.1` siempre lo están) |
 | `DJANGO_CSRF_TRUSTED_ORIGINS` | Orígenes HTTPS de confianza, separados por comas                 |
 | `DATABASE_URL`                | Conexión a PostgreSQL. Si falta, usa SQLite                      |
 | `RAILWAY_PUBLIC_DOMAIN`       | La pone Railway; se agrega solo a los hosts y orígenes permitidos |

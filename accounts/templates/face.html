@@ -10,7 +10,7 @@
 
 <div class="face-container">
     <img src="{% static 'img/logo-cesmag.png' %}" alt="Universidad CESMAG" class="title-logo">
-    <a href="{% url 'login' %}" class="title-link"><h2>Sistema de Asistencia Inteligente</h2></a>
+    <h2>Sistema de Asistencia Inteligente</h2>
     <div id="message" class="alert"></div>
     <div id="camera-container">
         <video id="video" width="100%" height="auto" autoplay playsinline muted></video>
@@ -26,6 +26,7 @@
             <button id="exit-button" data-type="exit">Salida</button>
         </div>
     </div>
+    <a href="{% url 'login' %}" class="admin-link">Acceso administrador</a>
 </div>
 
 <script src="{% static 'js/camera.js' %}"></script>

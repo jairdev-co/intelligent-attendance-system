@@ -3,14 +3,14 @@
 {# Admin login #}
 
 {% block styles %}
-<link rel="stylesheet" href="{% static 'css/login.css' %}">
+<link rel="stylesheet" href="{% static 'css/login.css' %}?v=2">
 {% endblock %}
 
 {% block content %}
 
 <div class="login-container">
     <img src="{% static 'img/logo-cesmag.png' %}" alt="Universidad CESMAG" class="title-logo">
-    <a href="{% url 'face' %}" class="title-link"><h2>Iniciar Sesión</h2></a>
+    <h2>Iniciar Sesión</h2>
 
     {% if error %}
     <div class="login-error">{{ error }}</div>
@@ -23,12 +23,29 @@
         {% if next %}<input type="hidden" name="next" value="{{ next }}">{% endif %}
         {# Non-field errors are shown above #}
         {% for field in form %}
+        {% if field.name == 'password' %}
+        <p>
+            {{ field.label_tag }}
+            <span class="password-wrapper">
+                {{ field }}
+                {# Shows or hides the typed password #}
+                <button type="button" class="password-toggle" aria-label="Mostrar contraseña" aria-pressed="false" title="Mostrar contraseña">
+                    <svg class="icon-show" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                    <svg class="icon-hide" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94"/><path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19"/><path d="M14.12 14.12a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg>
+                </button>
+            </span>
+        </p>
+        {% else %}
         <p>{{ field.label_tag }} {{ field }}</p>
+        {% endif %}
         {% endfor %}
         <button type="submit">
             Ingresar
         </button>
     </form>
+    <a href="{% url 'face' %}" class="back-button">Volver</a>
 </div>
+
+<script src="{% static 'js/login.js' %}?v=2"></script>
 
 {% endblock %}

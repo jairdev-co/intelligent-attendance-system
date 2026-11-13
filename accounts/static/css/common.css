@@ -31,11 +31,33 @@ body {
     font-weight: 600;
 }
 
-/* Titles that are also links */
-.title-link,
-.title-link:hover {
-    color: inherit;
+/* Plain "Volver" button under a form, back to the users list */
+.back-button {
+    display: block;
+    margin-top: 10px;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    color: #333;
     text-decoration: none;
+    font-size: 15px;
+}
+
+.back-button:hover {
+    background-color: #f4f7fa;
+    color: #333;
+}
+
+/* Small link to the admin login on the attendance screen */
+.admin-link {
+    display: inline-block;
+    margin-top: 20px;
+    font-size: 14px;
+    color: #555;
+}
+
+.admin-link:hover {
+    color: #0a3264;
 }
 
 /* Terms page */
